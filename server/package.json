@@ -4,13 +4,14 @@
   "description": "Tiffin Server Application",
   "main": "index.js",
   "scripts": {
-    "start":"node ./src/index.js",
+    "start": "node ./src/index.js",
     "dev": "nodemon ./src/index.js"
   },
   "author": "Anas",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
     "cloudinary": "^1.32.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
