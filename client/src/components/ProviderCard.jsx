@@ -20,7 +20,7 @@ function ProviderCard({ providerLogo, name, address, rating, id }) {
         <div className="w-full h-44">
           {loading && <Skeleton />}
           <img
-            src={"../assets/images/download.jpeg"}
+            src={providerLogo}
             onLoad={() => setLoading(false)}
             alt="name"
             className={`${loading ? "hidden" : "block"} w-full h-full`}
