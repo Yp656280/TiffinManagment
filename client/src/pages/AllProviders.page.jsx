@@ -12,6 +12,8 @@ import { useState } from "react";
 function AllProvidersPage() {
   const provider = useSelector((state) => state.provider);
   const providers = useSelector((state) => state.provider.allProviders);
+  const filteredProviders = providers?.slice(76); // or use providers.filter((provider, index) => index >= 64);
+
   const breadcrumbs = [
     <Link
       to="/"
@@ -32,7 +34,7 @@ function AllProvidersPage() {
   const [isSearch, setIsSearch] = useState(false);
 
   useEffect(() => {
-    setAllProviders(providers);
+    setAllProviders(filteredProviders);
   }, [providers]);
 
   const handleKeyDown = (e) => {
@@ -70,7 +72,11 @@ function AllProvidersPage() {
       </div>
     );
   }
-  if (!provider.loading && providers && providers.length === 0) {
+  if (
+    !provider.loading &&
+    filteredProviders &&
+    filteredProviders.length === 0
+  ) {
     return (
       <p className="font-semibold w-full text-center py-2.5">
         No Providers Found
@@ -79,7 +85,7 @@ function AllProvidersPage() {
   }
   return (
     <>
-      {providers && (
+      {filteredProviders && (
         <div>
           <div className="md:px-8 px-3 py-3">
             <TopNavigation breadcrumbs={breadcrumbs} />
@@ -123,7 +129,7 @@ function AllProvidersPage() {
               ))}
             {searchedProviders.length <= 0 &&
               !isSearch &&
-              providers.map((item, index) => (
+              filteredProviders.map((item, index) => (
                 <ProviderCard
                   name={item.name}
                   key={index}

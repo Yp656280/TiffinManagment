@@ -22,6 +22,7 @@ function ProviderRegistration() {
   const [address, setAddress] = useState("");
   const [isSigning, setIsSigning] = useState("");
   const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -37,29 +38,24 @@ function ProviderRegistration() {
       if (providerLogo.length > 0) form.append("providerLogo", providerLogo[0]);
 
       dispatch(providerRegister(form));
-      setEmail("");
-      setName("");
-      setPassword("");
-      setConfirmPassword("");
-      setPhoneNumber("");
-      setPasswordMatch(true);
-      setAddress("");
-      setProviderLogo("");
     }
   };
-  const provider = useSelector((state) => state.provider);
+
+  const providerRegisterSuccess = useSelector(
+    (state) => state.provider.providerRegister
+  );
+
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (provider.isProvider) {
+    if (providerRegisterSuccess) {
       setIsSigning(false);
-      toast.success("Registration Successfull");
+      toast.success("Registration Successful");
+      window.location.reload();
       navigate("/provider/dashboard");
-    } else if (provider && provider.error) {
-      toast.error("Invalid Credentials or Provider already exists");
-      setIsSigning(false);
-      dispatch(clearError());
     }
-  }, [provider, dispatch, navigate]);
+  }, [providerRegisterSuccess, navigate]);
+
   return (
     <div>
       <div className="py-2 sm:px-8 px-2 shadow flex justify-between items-center">
